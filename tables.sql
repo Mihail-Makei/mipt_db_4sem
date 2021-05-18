@@ -36,7 +36,7 @@ create table clients (
 create table brothels (
     brothel_id serial primary key,
     name varchar(100),
-    phone_number varchar(20)
+    phone_no varchar(20)
 );
 
 create table categories (
@@ -49,7 +49,7 @@ create table categories (
 create table legal_status (
     legal_id serial primary key,
     title varchar(10),
-    tax float
+    tax_rate float
 );
 
 create table girls (
@@ -59,7 +59,7 @@ create table girls (
     legal_id integer,
     name varchar(100),
     age integer,
-    phone_number varchar(20),
+    phone_no varchar(20),
     weight integer,
     height integer,
     breast_size integer,
@@ -77,7 +77,7 @@ create table purchases (
     client_id integer not null,
     girl_id integer not null,
     place_id integer not null,
-    total_sum integer not null,
+    total_amt integer not null,
     rate float4 check ( rate >= 1 and rate <= 5 ),
     constraint fk_client foreign key (client_id)
                        references clients(client_id),
@@ -86,13 +86,3 @@ create table purchases (
     constraint fk_place foreign key (place_id)
                        references places(place_id)
 );
-
-create table payments (
-    payment_id serial primary key,
-    purchase_id integer,
-    constraint fk_purchase foreign key (purchase_id)
-                      references purchases(purchase_id),
-    bank_send varchar(100),
-    bank_recv varchar(100),
-    amount integer not null
-)

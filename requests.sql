@@ -14,18 +14,18 @@ ORDER BY AVG(public.purchases.rate) DESC;
 
 
 -- Средний счёт за услугу в каждом из районов
-SELECT AVG(public.purchases.total_sum), public.districts.name
+SELECT AVG(public.purchases.total_amt), public.districts.name
 FROM purchases JOIN places ON places.place_id = purchases.place_id
     JOIN districts ON places.district_id = districts.district_id
     JOIN regions ON districts.region_id = regions.region_id
 GROUP BY districts.name
-ORDER BY AVG(public.purchases.total_sum) DESC;
+ORDER BY AVG(public.purchases.total_amt) DESC;
 
 -- Средний счёт тех, кто имеет оценки ниже 2,5 и тех, кто имеет оценки выше 3,5
-(SELECT AVG(public.purchases.total_sum)
+(SELECT AVG(public.purchases.total_amt)
 FROM purchases
 WHERE rate < 2.5)
-UNION (SELECT AVG(public.purchases.total_sum)
+UNION (SELECT AVG(public.purchases.total_amt)
 FROM purchases
 WHERE rate > 3.5);
 
